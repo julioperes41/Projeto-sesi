@@ -36,7 +36,7 @@ public class ProdutoController {
 	
 	@PostMapping
 	public ResponseEntity<Produto> criar(@RequestBody ProdutoDTO dto){
-		produto prod = new Produto(dto);
+		Produto prod = new Produto(dto);
 		return ResponseEntity.ok(prod); 
 	}
 
