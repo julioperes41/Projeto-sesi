@@ -1,19 +1,40 @@
 package com.sesi.projeto.entities;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_produto")
+@Table(name = "tb_pedido_item")
 public class ItemDoPedido {
 	
-	public integer getQuantidade() {
+	
+	@EmbeddedId	
+	private ItemDoPedidoPK id = new ItemDoPedidoPK();
+	@ManyToOne
+	@JoinColumn(name = "tb_pedido_item")
+	private Pedido pedido;
+
+	
+	private Integer quantidade;
+	private Double preco;
+	public ItemDoPedido() {}
+	
+	
+	
+	public ItemDoPedido(Integer quantidade, double preco) {
+		super();
+		this.quantidade = quantidade;
+		this.preco = preco;
+			
+		
+	}
+	public Integer getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(integer quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 	public double getPreco() {
@@ -22,14 +43,7 @@ public class ItemDoPedido {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	public ItemDoPedido(integer quantidade, double preco) {
-		super();
-		this.quantidade = quantidade;
-		this.preco = preco;
+	
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private integer quantidade;
-	private double preco;
 
-}
+

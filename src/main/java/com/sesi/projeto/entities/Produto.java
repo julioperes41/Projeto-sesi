@@ -1,12 +1,18 @@
 package com.sesi.projeto.entities;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.sesi.projeto.dto.ProdutoDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 	
@@ -22,9 +28,11 @@ import jakarta.persistence.Table;
 	private Double preco;
 	private String descricao;
 	
-	public Produto() {
-		
-	}
+	@ManyToMany
+	@JoinTable(name = "tb_produto_categoria",
+	joinColumns = @JoinColumn(name = "produto_id"),
+	inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private Set<Categoria> categorias = new HashSet<>();
 	
 	public Produto(ProdutoDTO d) {
 		this.nome = d.descricao();
@@ -39,6 +47,10 @@ import jakarta.persistence.Table;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
+	}
+	
+public Produto() {
+		
 	}
 
 
